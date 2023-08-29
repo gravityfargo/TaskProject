@@ -1,0 +1,26 @@
+<h2>Tasks</h2>
+{% if tasks|length < 1 %} <h2>There are no Tasks.</h2>
+    {% else %}
+    <table class="table">
+        <tr>
+            <th>Tag</th>
+            <th>Task</th>
+            <th>Added</th>
+            <th>Due</th>
+            <th></th>
+
+        </tr>
+        {% for task in tasks %}
+        <tr>
+            <td>{{ task.tag }}</td>
+            <td>{{ task.content }}</td>
+            <td>{{ task.date_created }}</td>
+            <td>{{ task.date_due }}</td>
+            <td align="right">
+                <a href="/delete/{{task.id}}"><i class="fa-solid fa-trash-can"></i></a>
+                <a href="/update/{{task.id}}"><i class="fa-solid fa-pen-to-square"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}

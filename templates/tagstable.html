@@ -1,0 +1,16 @@
+<h2>Tags</h2>
+<table class="table">
+    <tr>
+        <th>Tag</th>
+    </tr>
+    {% for tag in tags %}
+    <tr>
+        <td>{{ tag.title }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+<form action="/tag/add" method="POST">
+    <input type="text" name="content" id="content">
+    <input type="submit" value="Add Tag">
+</form>
