@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import exists
 from datetime import datetime
 from utils import cprint
+from blueprints.core.core_routes import core_bp
 
 db = SQLAlchemy()
 app = Flask(__name__)
@@ -22,6 +23,7 @@ class Tags(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(20), nullable=False)
 
+app.register_blueprint(core_bp)
 
 @app.route('/', methods=['POST', 'GET']) # type: ignore
 def index():
@@ -61,11 +63,12 @@ def addTag():
     except:
         return 'There was an issue adding your category'
 
-@app.route('/api/tag/add/<tagname>', methods=['POST', 'GET']) # type: ignore
-def addTagAPI(tagname):
-    new_tag = Tags(title=tagname)
-    db.session.add(new_tag)
-    db.session.commit()
+@app.route('/tag/table', methods=['POST', 'GET']) # type: ignore
+def tagTable():
+    tags = Tags.query.order_by(Tags.id).all()
+    return render_template('tagstable.html', tags=tags)
+
+
 
 @app.route('/tag/delete/<int:id>', methods=['POST']) # type: ignore
 def deleteTag(id):
