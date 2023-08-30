@@ -10,8 +10,8 @@ core_bp = Blueprint('core', __name__, template_folder='templates')
 
 @core_bp.route('/') # type: ignore
 def taskTable():
-    tasks = Tasks.query.order_by(Tasks.id).all()
-    tags = Tags.query.order_by(Tags.id).all()
+    tasks = Tasks.query.all()
+    tags = Tags.query.all()
     # checkForTagInTasks("boob")
     return render_template('index.html', tasks=tasks, tags=tags)
 
@@ -66,7 +66,11 @@ def deleteTask(id):
     task_to_delete = Tasks.query.get_or_404(id)
     taskquery = getTaskQueryByID(id)
     if checkForTagInTasks(taskquery.tag) == False:
-        deleteTag(getTagIDByContent(taskquery.tag))
+        tagID = getTagIDByContent(taskquery.tag)
+        if tagID == False:
+            pass
+        else:
+            deleteTag(getTagIDByContent(taskquery.tag))
     try:
         db.session.delete(task_to_delete)
         db.session.commit()
@@ -122,13 +126,18 @@ def deleteTag(id):
 def checkForTagInTasks(tag):
     tagexist = Tasks.query.filter_by(tag=tag).all()
     if len(tagexist) > 1:
-        return True
+        return TrueS
     else:
         return False
 
 def getTagIDByContent(contents):
-    tagquery = Tags.query.filter_by(content=contents).first()    
-    return str(tagquery.id)
+    tagquery = Tags.query.filter_by(content=contents).all() 
+    if len(tagquery) == 0:
+        return False
+    elif tagquery.id:
+        return False
+    else:
+        return str(tagquery.id)
 
 def getTaskQueryByID(id):
     task = Tasks.query.filter_by(id=id).first() 
