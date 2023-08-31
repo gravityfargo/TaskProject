@@ -1,6 +1,4 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-
 from .models import db
 from .blueprints.core.core_routes import core_bp
 
