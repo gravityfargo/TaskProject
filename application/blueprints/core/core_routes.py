@@ -1,3 +1,4 @@
+from turtle import color
 from flask import Blueprint, redirect, render_template, request, json
 from datetime import datetime
 from application.models import db, Tags, Tasks
@@ -29,11 +30,13 @@ def newTask():
         task_content_post = request.form['content']
         task_tag_post = request.form['tag']
         task_due_post = request.form['datepicker'] 
-                # check if tag exists in that table
+        
+        # check if tag exists in that table
         if task_tag_post != "":
             tagquery = db.session.query(exists().where(Tags.content == task_tag_post))
             if tagquery.scalar() is False:
-                newTag(tagname=task_tag_post)           
+                newTag(tagname=task_tag_post)  
+                         
         try:
             new_task = Tasks(content=task_content_post, tag=task_tag_post, date_created=creation_date, date_due=task_due_post)
             db.session.add(new_task)
@@ -98,7 +101,7 @@ def newTag(**kwargs):
     if request.method == 'POST':
         new_tag_post = request.form['content']
         try:
-            new_tag = Tags(content=new_tag_post)
+            new_tag = Tags(content=new_tag_post, colorhex="")
             db.session.add(new_tag)
             db.session.commit()
             return redirect('/')
@@ -106,7 +109,7 @@ def newTag(**kwargs):
             return 'There was an issue adding your task'
     else:
         try:
-            new_tag = Tags(content=new_tag_arg)
+            new_tag = Tags(content=new_tag_arg, colorhex="")
             db.session.add(new_tag)
             db.session.commit()
             return redirect('/')
@@ -126,18 +129,17 @@ def deleteTag(id):
 def checkForTagInTasks(tag):
     tagexist = Tasks.query.filter_by(tag=tag).all()
     if len(tagexist) > 1:
-        return TrueS
+        return True
     else:
         return False
 
 def getTagIDByContent(contents):
     tagquery = Tags.query.filter_by(content=contents).all() 
-    if len(tagquery) == 0:
+    try:
+        tagid = tagquery[0].id
+        return tagid
+    except:
         return False
-    elif tagquery.id:
-        return False
-    else:
-        return str(tagquery.id)
 
 def getTaskQueryByID(id):
     task = Tasks.query.filter_by(id=id).first() 

@@ -18,6 +18,8 @@ class Tasks(db.Model): # type: ignore
 class Tags(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(20), nullable=False)
+    colorhex = db.Column(db.String(20), nullable=True)
 
-    def __init__(self, content):
+    def __init__(self, content, colorhex):
         self.content = content
+        self.colorhex = colorhex
