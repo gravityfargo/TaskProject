@@ -1,3 +1,0 @@
-DEBUG = True
-THREADED = True
-SQLALCHEMY_ECHO = False
