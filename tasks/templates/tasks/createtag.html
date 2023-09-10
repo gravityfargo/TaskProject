@@ -1,0 +1,13 @@
+{% extends "tasks/base.html" %}
+{% block title %}
+Create Tag
+{% endblock title %}
+{% block content %}
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" name="save">Create New</button>
+</form>
+
+
+{% endblock content %}

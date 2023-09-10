@@ -1,0 +1,10 @@
+{% extends "tasks/base.html" %}
+{% block content %}
+    <ul>
+        {% for item in all_tasks %}
+            <li>
+                {{ item.task_text }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock content %}

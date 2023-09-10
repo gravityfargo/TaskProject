@@ -8,7 +8,6 @@ class Tag(models.Model):
     # attributes
     tag_text = models.CharField(max_length=10)
     date_created = models.DateField()
-    date_due = models.DateField()
     # method to return a human readable represention of the object
     def __str__(self):
         return self.tag_text
