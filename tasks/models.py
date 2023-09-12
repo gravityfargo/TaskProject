@@ -6,7 +6,7 @@ from django.utils import timezone
 # Create your models here.
 class Tag(models.Model):
     # attributes
-    tag_text = models.CharField(max_length=10)
+    tag_text = models.CharField(max_length=10, unique=True, blank=True)
     date_created = models.DateField()
     # method to return a human readable represention of the object
     def __str__(self):

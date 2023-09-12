@@ -1,10 +1,47 @@
 {% extends "tasks/base.html" %}
+{% block title %}
+Home
+{% endblock title %}
 {% block content %}
-    <ul>
-        {% for item in all_tasks %}
-            <li>
-                {{ item.task_text }}
-            </li>
-        {% endfor %}
-    </ul>
+<div class="row">
+    <div class="col">
+        <table class="table table-striped table-hover table-sm">
+            <tbody>
+                {% for item in all_tasks %}
+                <tr>
+                    <td>
+                        {{ item.task_tag }}
+                    </td>
+                    <td>
+                        {{ item.task_text }}
+                    </td>
+                    <td>
+                        <a href="{% url 'tasks:deletetask' id=item.id %}"><button type="submit"><i class="fa-regular fa-trash-can"></i></button></a>
+                    </td>
+                    <td>
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="col">
+        <table class="table table-striped table-hover table-sm">
+            <thead>
+                Tags
+            </thead>
+            <tbody>
+                {% for item in all_tags %}
+                <tr>
+                    <td>
+                        {{ item.tag_text }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
 {% endblock content %}

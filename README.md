@@ -1,9 +1,14 @@
 A todo management web application with REST api using django
 
-python manage.py makemigrations tasks
-python manage.py migrate
+python3 -m venv venv
+source venv/bin/activate
+python3 -m pip install -r requirements.txt
+python3 manage.py createsuperuser
+python3 manage.py makemigrations tasks
+python3 manage.py migrate
+python3 manage.py runserver
 
-python manage.py createsuperuser
+
 
 -   **TaskProject/**
     - container for the project
@@ -19,4 +24,6 @@ python manage.py createsuperuser
     - webserver entry point
 - **TaskProject/wsgi.py**
     - webserver entry point
+
+
 

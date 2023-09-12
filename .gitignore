@@ -1,6 +1,6 @@
 __pycache__
 db.sqlite3
-.vscode/* 
+.vscode/
 !.vscode/settings.json 
 !.vscode/tasks.json 
 !.vscode/launch.json 
@@ -8,3 +8,4 @@ db.sqlite3
 .history
 .vscode/settings.json
 tasks/migrations/
+venv/
