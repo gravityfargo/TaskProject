@@ -2,10 +2,12 @@ A todo management web application with REST api using django
 
 python3 -m venv venv
 source venv/bin/activate
+
 python3 -m pip install -r requirements.txt
-python3 manage.py createsuperuser
 python3 manage.py makemigrations tasks
 python3 manage.py migrate
+python3 manage.py createsuperuser
+python3 manage.py loaddata sample.json
 python3 manage.py runserver
 
 
