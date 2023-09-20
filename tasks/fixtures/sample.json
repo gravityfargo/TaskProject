@@ -4,7 +4,9 @@
         "pk": 1,
         "fields": {
             "tag_text": "Test Tag 1",
-            "date_created": "2023-09-12"
+            "date_created": "2023-09-12",
+            "date_modified": "2023-09-12",
+            "created_by_user": "nathan"
         }
     },
     {
@@ -12,7 +14,9 @@
         "pk": 2,
         "fields": {
             "tag_text": "Test Tag 2",
-            "date_created": "2023-09-12"
+            "date_created": "2023-09-12",
+            "date_modified": "2023-09-12",
+            "created_by_user": "nathan"
         }
     },
     {
@@ -20,7 +24,9 @@
         "pk": 3,
         "fields": {
             "tag_text": "Test Tag 3",
-            "date_created": "2023-09-12"
+            "date_created": "2023-09-12",
+            "date_modified": "2023-09-12",
+            "created_by_user": "nathan"
         }
     },
     {
@@ -28,7 +34,9 @@
         "pk": 4,
         "fields": {
             "tag_text": "Test Tag 4",
-            "date_created": "2023-09-12"
+            "date_created": "2023-09-12",
+            "date_modified": "2023-09-12",
+            "created_by_user": "nathan"
         }
     },
     {
@@ -36,7 +44,9 @@
         "pk": 5,
         "fields": {
             "tag_text": "Test Tag 5",
-            "date_created": "2023-09-12"
+            "date_created": "2023-09-12",
+            "date_modified": "2023-09-12",
+            "created_by_user": "nathan"
         }
     },
     {
@@ -44,67 +54,87 @@
         "pk": 6,
         "fields": {
             "tag_text": "Test Tag 6",
-            "date_created": "2023-09-12"
+            "date_created": "2023-09-12",
+            "date_modified": "2023-09-12",
+            "created_by_user": "nathan"
+        }
+    },
+    {
+        "model": "tasks.task",
+        "pk": 1,
+        "fields": {
+            "task_text": "Task 1",
+            "task_tag": 1,
+            "date_created": "2023-09-12",
+            "date_due": "2023-09-12",
+            "date_modified": "2023-09-12",
+            "created_by_user": "nathan",
+            "completedstatus": "False"
         }
     },
     {
         "model": "tasks.task",
         "pk": 2,
         "fields": {
-            "task_text": "Task 1",
-            "task_tag": 1,
+            "task_text": "Task 2",
+            "task_tag": 2,
             "date_created": "2023-09-12",
-            "date_due": "2023-09-12"
+            "date_due": "2023-09-12",
+            "date_modified": "2023-09-12",
+            "created_by_user": "nathan",
+            "completedstatus": "False"
         }
     },
     {
         "model": "tasks.task",
         "pk": 3,
         "fields": {
-            "task_text": "Task 2",
-            "task_tag": 2,
+            "task_text": "Task 3",
+            "task_tag": 3,
             "date_created": "2023-09-12",
-            "date_due": "2023-09-12"
+            "date_due": "2023-09-12",
+            "date_modified": "2023-09-12",
+            "created_by_user": "nathan",
+            "completedstatus": "False"
         }
     },
     {
         "model": "tasks.task",
         "pk": 4,
         "fields": {
-            "task_text": "Task 3",
-            "task_tag": 3,
+            "task_text": "Task 4",
+            "task_tag": 4,
             "date_created": "2023-09-12",
-            "date_due": "2023-09-12"
+            "date_due": "2023-09-12",
+            "date_modified": "2023-09-12",
+            "created_by_user": "nathan",
+            "completedstatus": "False"
         }
     },
     {
         "model": "tasks.task",
         "pk": 5,
         "fields": {
-            "task_text": "Task 4",
-            "task_tag": 4,
+            "task_text": "Task 5",
+            "task_tag": 5,
             "date_created": "2023-09-12",
-            "date_due": "2023-09-12"
+            "date_due": "2023-09-12",
+            "date_modified": "2023-09-12",
+            "created_by_user": "nathan",
+            "completedstatus": "False"
         }
     },
     {
         "model": "tasks.task",
         "pk": 6,
         "fields": {
-            "task_text": "Task 5",
-            "task_tag": 5,
-            "date_created": "2023-09-12",
-            "date_due": "2023-09-12"
-        }
-    },
-    {
-        "model": "tasks.task",
-        "pk": 7,
-        "fields": {
             "task_text": "Task 6",
             "task_tag": 6,
             "date_created": "2023-09-12",
-            "date_due": "2023-09-12"
+            "date_due": "2023-09-12",
+            "date_modified": "2023-09-12",
+            "created_by_user": "nathan",
+            "completedstatus": "False"
         }
     }
 ]
