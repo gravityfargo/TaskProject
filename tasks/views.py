@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from .models import Task, Tag
 from .forms import CreateNewTag, CreateNewTask
 from django.utils import timezone
-from django.http import HttpResponseRedirect
+from rest_framework import viewsets
 
 
 
