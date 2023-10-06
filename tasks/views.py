@@ -8,6 +8,7 @@ def index(response):
     all_tasks = Task.objects.order_by("date_created")
     all_tags = Tag.objects.order_by("date_created")
     form = CreateNewTask()
+
     return render(response, "tasks/index.html", {"all_tasks": all_tasks, "all_tags":all_tags, "form": form})
 
 def createtag(response):
@@ -21,7 +22,7 @@ def createtag(response):
             return redirect("tasks:index")
     elif response.method == "GET":
         form = CreateNewTag()
-        
+    
     return render(response, "tasks/createtag.html", {"form": form})
 
 def createtask(response):

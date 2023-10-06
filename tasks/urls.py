@@ -14,7 +14,7 @@ urlpatterns = [
     path("createtask/", views.createtask, name="createtask"),
     path("deletetask/<int:id>", views.deletetask, name="deletetask"),
     
-    # API
+    # API to retrieve 
     path('api/', include(router.urls)),
     path('api/tasklist/', TaskListApiView.as_view()),
     path('api/<int:tid>/', TaskDetailApiView.as_view()),
