@@ -1,8 +1,10 @@
-A todo management web application with REST api using django
+# TaskProject
+A todo management web application with REST API using django
 
-python3 -m venv venv
-source venv/bin/activate
-
+## Run Webserver
+git clone https://github.com/gravityfargo/TaskProject.git && cd TaskProject
+python3 -m venv .venv
+source .venv/bin/activate
 python3 -m pip install -r requirements.txt
 python3 manage.py makemigrations tasks
 python3 manage.py migrate
@@ -11,8 +13,8 @@ python3 manage.py loaddata sample.json
 python3 manage.py runserver
 
 
-
--   **TaskProject/**
+## File Structure
+- **TaskProject/**
     - container for the project
 - **TaskProject/TaskProject/**
     - "Project" a collection of apps
