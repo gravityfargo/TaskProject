@@ -3,7 +3,7 @@
         "model": "tasks.tag",
         "pk": 0,
         "fields": {
-            "tag_text": "Untagges",
+            "tag_text": "Unassigned",
             "date_created": "2023-09-12",
             "date_modified": "2023-09-12",
             "created_by_user": "1"

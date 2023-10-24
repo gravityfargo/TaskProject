@@ -3,6 +3,7 @@ from django.db import models
 from django.utils import timezone
 
 def default_tag():
+        # tag text is "unassigned"
         return 0
 
 class Tag(models.Model):
