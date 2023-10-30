@@ -30,4 +30,6 @@ python3 manage.py runserver
     - webserver entry point
 
 
+Notes:
+- whenever changes are made to models.py, run makemigrations
 

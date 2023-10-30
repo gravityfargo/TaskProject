@@ -1,26 +1,14 @@
-from django.urls import include, path
-from rest_framework import routers
-from . import views
-from .apiviews import TaskListApiView, TaskDetailApiView, UserViewSet, GroupViewSet
-
-app_name = "tasks"
-# # router = routers.DefaultRouter()
-# # router.register(r'users', UserViewSet)
-# # router.register(r'groups', GroupViewSet)
+from django.urls import path
+from .views import TaskList, TaskDetail, TaskCreate, TaskUpdate, TaskDelete
 
 urlpatterns = [
-    # path("register", views.register, name="register"),
-    # path("", views.index, name="index"),
-#     path("", views.index, name="index"),
-#     # path("createtag/", views.createtag, name="createtag"),
-#     # path("createtask/", views.createtask, name="createtask"),
-#     # path("deletetask/<int:id>", views.deletetask, name="deletetask"),
-    
-#     # # API
-#     # path('api/', include(router.urls)),
-#     # # get all tasks for given user
-#     # path('api/gettasklist/<int:userid>', TaskListApiView.as_view()),
-#     # # get specific task for given user
-#     # path('api/<int:taskid>/<int:taskid>', TaskDetailApiView.as_view()),
-#     # path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    # name='' is used for routing buttons and shit
+    # <a href="{% url 'task-detail' %}">
+
+    # by default loads the task_list.html template
+    path('', TaskList.as_view(), name='task'),
+    path("task-create/", TaskCreate.as_view(), name="task-create"),
+    path('task/<int:pk>/', TaskDetail.as_view(), name='task-detail'),
+    path('task-update/<int:pk>/', TaskUpdate.as_view(), name='task-update'),
+    path('task-delete/<int:pk>/', TaskDelete.as_view(), name='task-delete')
 ]
