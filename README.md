@@ -2,15 +2,25 @@
 A todo management web application with REST API using django
 
 ## Run Webserver
-git clone https://github.com/gravityfargo/TaskProject.git && cd TaskProject
-python3 -m venv .venv
-source .venv/bin/activate
-python3 -m pip install -r requirements.txt
-python3 manage.py makemigrations tasks
-python3 manage.py migrate
-python3 manage.py createsuperuser
-python3 manage.py loaddata sample.json
-python3 manage.py runserver
+***Prerequisites***: python, pip
+
+`git clone https://github.com/gravityfargo/TaskProject.git && cd TaskProject`
+
+`python3 -m venv .venv`
+
+`source .venv/bin/activate`
+
+`python3 -m pip install -r requirements.txt`
+
+`python3 manage.py makemigrations tasks`
+
+`python3 manage.py migrate`
+
+`python3 manage.py createsuperuser`
+
+`python3 manage.py loaddata sample.json`
+
+`python3 manage.py runserver`
 
 
 ## File Structure

@@ -13,7 +13,7 @@ class Task(models.Model):
         return self.title
     
     # Model metadata is “anything that’s not a field”, 
-    # such as ordering options (ordering), 
+    # such as ordering options (like i.e. sorting), 
     # database table name (db_table), 
     # or human-readable singular and plural names
     class Meta:
