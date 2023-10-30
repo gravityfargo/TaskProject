@@ -31,5 +31,6 @@ python3 manage.py runserver
 
 
 Notes:
+- if more than one database colum is changed, you must migrate from scratch, so remove the "migrations" folder before running make migrations and migrate
 - whenever changes are made to models.py, run makemigrations
 
