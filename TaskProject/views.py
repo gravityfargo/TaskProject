@@ -1,9 +1,10 @@
-from django.urls import reverse_lazy
-from django.contrib.auth.views import LoginView
-from django.views.generic import FormView
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-from django.shortcuts import redirect
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
+from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
+from django.views.generic import FormView, View
 class GlobalLogin(LoginView):
     template_name = 'login.html'
     fields = "__all__"
@@ -28,3 +29,7 @@ class GlobalRegister(FormView):
         if self.request.user.is_authenticated:
             return redirect('dashboard')
         return super(GlobalRegister, self).get(*args, **kwargs)
+
+class DashboardView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        return render(request, "dashboard.html")
