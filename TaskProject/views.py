@@ -3,6 +3,7 @@ from django.contrib.auth.views import LoginView
 from django.views.generic import FormView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
+from django.shortcuts import redirect
 class GlobalLogin(LoginView):
     template_name = 'login.html'
     fields = "__all__"
@@ -21,5 +22,9 @@ class GlobalRegister(FormView):
         user = form.save()
         if user is not None:
             login(self.request, user)
-
         return super(GlobalRegister, self).form_valid(form)
+
+    def get(self, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            return redirect('dashboard')
+        return super(GlobalRegister, self).get(*args, **kwargs)
