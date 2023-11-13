@@ -48,7 +48,7 @@ Navigate to [http://127.0.0.1:42069/](http://127.0.0.1:42069/)
 - if more than one database colum is changed, you must migrate from scratch, so remove the "migrations" folder before running make migrations and migrate
 - whenever changes are made to models.py, run makemigrations
 
-## Extending the base.html template for individual apps
+## Extending the base.html template for new apps
 ```
 {% extends "base.html" %}
 {% block title %}NEW_APP_NAME{% endblock title %}
@@ -68,3 +68,11 @@ Navigate to [http://127.0.0.1:42069/](http://127.0.0.1:42069/)
 
 **block NEW_APP_NAMEcontent:** this creates a sub block inside content specifically for the the app
 
+## Planned
+- django-bootstrap-modal-forms
+- django-rest-api
+- calendar app
+    - nextcloud [caldav integration](https://github.com/python-caldav/caldav)
+- notes app
+- dedicated desktop (electron app?)
+- dedicated android app
