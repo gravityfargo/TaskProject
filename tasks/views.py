@@ -1,7 +1,9 @@
+from bootstrap_datepicker_plus.widgets import DateTimePickerInput
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .models import Task
+
 
 # class based views, create a new object that inherets django provided classes
 # specificlly for present model data
@@ -37,6 +39,11 @@ class TaskCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(TaskCreate, self).form_valid(form)
+    
+    def get_form(self, form_class=None):
+        form = super(TaskCreate, self).get_form(form_class)
+        form.fields["due"].widget = DateTimePickerInput()
+        return form
 
 class TaskUpdate(LoginRequiredMixin, UpdateView):
     model = Task
