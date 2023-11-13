@@ -76,3 +76,4 @@ Navigate to [http://127.0.0.1:42069/](http://127.0.0.1:42069/)
 - notes app
 - dedicated desktop (electron app?)
 - dedicated android app
+- migrate to django 5
