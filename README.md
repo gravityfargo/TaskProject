@@ -18,6 +18,7 @@ A todo management web application with REST API using django
 
 `python3 manage.py createsuperuser`
 
+fix this
 `python3 manage.py loaddata sample.json`
 
 `python3 manage.py runserver`
