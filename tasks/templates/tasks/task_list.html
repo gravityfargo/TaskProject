@@ -1,19 +1,28 @@
 {% extends "tasks/tasks-sub-base.html" %}
 {% block taskscontent %}
-<td><a href="{% url 'task-create' %}">Create Task</a></td>
-<table>
-    <tr>
-        <th>Items</th>
-    </tr>
-    {% for task in tasks %}
-    <tr>
-        <td>{{ task.title }}</td>
-        <td><a href="{% url 'task-detail' task.id %}">Details</a></td>
-        <td><a href="{% url 'task-update' task.id %}">Update</a></td>
-        <td><a href="{% url 'task-delete' task.id %}">Delete</a></td>
-    </tr>
-    {% empty %}
-    <h4>No items in list</h4>
-    <a href="">Add new Item</a> {% endfor %}
-</table>
+<div class="row">
+    <div class="col">
+    </div>
+    <div class="col">
+        <button class="btn"><a href="{% url 'task-create' %}">Create Task</a></button>
+        <table>
+            <tr>
+                <th>Items</th>
+            </tr>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.title }}</td>
+                <td><a href="{% url 'task-detail' task.id %}">Details</a></td>
+                <td><a href="{% url 'task-update' task.id %}">Update</a></td>
+                <td><a href="{% url 'task-delete' task.id %}">Delete</a></td>
+            </tr>
+            {% empty %}
+            <h4>No items in list</h4>
+            <a href="">Add new Item</a> {% endfor %}
+        </table>
+    </div>
+    <div class="col">
+
+    </div>
+</div>
 {% endblock taskscontent %}
