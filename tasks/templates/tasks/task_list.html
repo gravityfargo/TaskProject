@@ -1,28 +1,55 @@
 {% extends "tasks/tasks-sub-base.html" %}
 {% block taskscontent %}
-<div class="row">
+<div class="row" name="info-bar">
+    <div class="col"></div>
     <div class="col">
-    </div>
-    <div class="col">
-        <button class="btn"><a href="{% url 'task-create' %}">Create Task</a></button>
-        <table>
+        <table class="table">
             <tr>
-                <th>Items</th>
+                <th>Incomplete</th>
+                <th>Due Today</th>
+                <th>Due this week</th>
+            </tr>
+            <tr>
+                <td>{{ incomplete }}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col"></div>
+</div>
+<div class="row">
+    <div class="col"></div>
+    <div class="col">
+        <div class="btn-group" role="group" aria-label="">
+            <a href="{% url 'task-create' %}" class="btn btn-outline-primary">Create Task</a>
+        </div>
+    </div>
+    <div class="col"></div>
+</div>
+<div class="row">
+    <div class="col"></div>
+    <div class="col">
+        <table class="table">
+            <tr>
+                <th class="col col-lg-6"></th>
+                <th class="col-md-auto"></th>
+                <th class="col-md-auto"></th>
+                <th class="col-md-auto"></th>
+                <th class="col-md-auto"></th>
             </tr>
             {% for task in tasks %}
             <tr>
                 <td>{{ task.title }}</td>
-                <td><a href="{% url 'task-detail' task.id %}">Details</a></td>
-                <td><a href="{% url 'task-update' task.id %}">Update</a></td>
-                <td><a href="{% url 'task-delete' task.id %}">Delete</a></td>
+                <td>{{ task.due|date }}</td>
+                <td><a href="{% url 'task-detail' task.id %}"><i class="fa-solid fa-circle-info"></i></a></td>
+                <td><a href="{% url 'task-update' task.id %}"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                <td><a href="{% url 'task-delete' task.id %}"><i class="fa-solid fa-trash"></i></a></td>
             </tr>
             {% empty %}
             <h4>No items in list</h4>
-            <a href="">Add new Item</a> {% endfor %}
+            {% endfor %}
         </table>
     </div>
     <div class="col">
-
     </div>
 </div>
 {% endblock taskscontent %}

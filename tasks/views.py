@@ -1,4 +1,4 @@
-from bootstrap_datepicker_plus.widgets import DateTimePickerInput
+from bootstrap_datepicker_plus.widgets import DatePickerInput
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
@@ -19,7 +19,15 @@ class TaskList(LoginRequiredMixin, ListView):
         # when the page is loaded, this class will take the 'task' model object (task table in the database)
         # this filter only allow tasks for the logged in user who sent the request (loaded the page)
         context['tasks'] = context['tasks'].filter(user=self.request.user)
-        context['count'] = context['tasks'].filter(complete=False).count()
+        context['incomplete'] = context['tasks'].filter(complete=False).count()
+        
+        # future search function
+        # # gets text from the 'search' (name of html element) bar in the nav, can be empty
+        # search_input = self.request.GET.get('search') or ''
+        # if search_input:
+        #     # filters the tasks again by the search term
+        #     context['task'] = context['task'].filter(title__icontains = search_input)
+        #     context['search_input'] = search_input
         return context
 
 class TaskDetail(LoginRequiredMixin, DetailView):
@@ -42,7 +50,7 @@ class TaskCreate(LoginRequiredMixin, CreateView):
     
     def get_form(self, form_class=None):
         form = super(TaskCreate, self).get_form(form_class)
-        form.fields["due"].widget = DateTimePickerInput()
+        form.fields["due"].widget = DatePickerInput()
         return form
 
 class TaskUpdate(LoginRequiredMixin, UpdateView):
