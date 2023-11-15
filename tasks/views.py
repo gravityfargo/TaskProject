@@ -2,7 +2,7 @@ from bootstrap_datepicker_plus.widgets import DatePickerInput
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from .models import Task
+from .models import Task, Tag
 
 
 # class based views, create a new object that inherets django provided classes
@@ -20,6 +20,17 @@ class TaskList(LoginRequiredMixin, ListView):
         # this filter only allow tasks for the logged in user who sent the request (loaded the page)
         context['tasks'] = context['tasks'].filter(user=self.request.user)
         context['incomplete'] = context['tasks'].filter(complete=False).count()
+        context['tags'] = Tag.objects.filter(user=self.request.user)
+        daystoday = 0
+        daysnextseven = 0
+        for task in context['tasks']:
+            if task.days_away_from_due() == 0:
+                daystoday += 1
+            if task.days_away_from_due() <= 7:
+                daysnextseven += 1
+        context['due_today'] = daystoday
+        context['due_next_seven_days'] = daysnextseven
+
         
         # future search function
         # # gets text from the 'search' (name of html element) bar in the nav, can be empty
@@ -34,7 +45,6 @@ class TaskDetail(LoginRequiredMixin, DetailView):
     model = Task
     context_object_name = 'task'
     template_name = 'tasks/task.html'
-
 class TaskCreate(LoginRequiredMixin, CreateView):
     # createview shows a form
     model = Task
@@ -52,7 +62,6 @@ class TaskCreate(LoginRequiredMixin, CreateView):
         form = super(TaskCreate, self).get_form(form_class)
         form.fields["due"].widget = DatePickerInput()
         return form
-
 class TaskUpdate(LoginRequiredMixin, UpdateView):
     model = Task
     fields = ['title', 'description', 'tag', 'due']
@@ -61,7 +70,6 @@ class TaskUpdate(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(TaskCreate, self).form_valid(form)
-
 class TaskDelete(LoginRequiredMixin, DeleteView):
     model = Task
     context_object_name = 'task'

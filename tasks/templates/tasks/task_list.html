@@ -40,7 +40,7 @@
                     </div>
                 </div>
             </li>
-            <li class="list-group-item">
+            <li class="list-group-item" name="due-today">
                 <div class="row" name="today">
                     <div class="col-sm-auto">
                         <a href="" name="today-filter">
@@ -56,7 +56,7 @@
                     </div>
                     <div class="col-sm-auto" name="count">
                         <a href="" name="today-filter">
-                            {{ incomplete }}
+                            {{ due_today }}
                         </a>
                     </div>
                     <div class="col-sm-auto" name="edit-button">
@@ -66,8 +66,8 @@
                     </div>
                 </div>
             </li>
-            <li class="list-group-item">
-                <div class="row" name="week">
+            <li class="list-group-item" name="next-seven">
+                <div class="row" name="next-seven">
                     <div class="col-sm-auto">
                         <a href="" name="week-filter">
                             <div name="icon">
@@ -77,11 +77,38 @@
                     </div>
                     <div class="col-auto me-auto">
                         <a href="" name="week-filter">
-                            <span name="title">Due this Week</span>
+                            <span name="title">Due Next 7 days</span>
                         </a>
                     </div>
                     <div class="col-sm-auto" name="count">
                         <a href="" name="incomplete-filter">
+                            {{ due_next_seven_days }}
+                        </a>
+                    </div>
+                    <div class="col-sm-auto" name="edit-button">
+                        <a href="" name="edit-button-link">
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </a>
+                    </div>
+                </div>
+            </li>
+            {% for tag in tags %}
+            <li class="list-group-item">
+                <div class="row" name="TAGTITLE">
+                    <div class="col-sm-auto">
+                        <a href="" name="TAGTITLE-filter">
+                            <div name="icon">
+                                <i class="fa-solid fa-circle" style="color: {{ tag.color }} ;"></i>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-auto me-auto">
+                        <a href="" name="TAGTITLE-filter">
+                            <span name="title">TAGTITLE</span>
+                        </a>
+                    </div>
+                    <div class="col-sm-auto" name="count">
+                        <a href="" name="TAGTITLE-filter">
                             {{ incomplete }}
                         </a>
                     </div>
@@ -92,6 +119,7 @@
                     </div>
                 </div>
             </li>
+            {% endfor %}
         </ul>
     </div> 
     <div class="col-6 p-3" name="tasks-table">
