@@ -1,19 +1,15 @@
 {% extends "tasks/tasks-sub-base.html" %}
 {% block taskscontent %}
-
-<div class="row p-2" name="button-row">
-    <div class="col"></div>
-    <div class="col">
-        <div class="btn-group" role="group" aria-label="">
-            <a href="{% url 'task-create' %}" class="btn btn-outline-primary">New Task</a>
-            <a href="{% url 'tag-create' %}" class="btn btn-outline-primary">New Tag</a>
-        </div>
-    </div>
-    <div class="col"></div>
-</div>
 <div class="row p-2" name="main-content">
     <div class="col" name="side-tag-pane">
-        <h5>Tag Filters</h5>
+        <div class="d-flex justify-content-between mb-3">
+            <div class="d-flex-item">
+                <h5>Tag Filters</h5>
+            </div>
+            <div class="d-flex-item">
+                <a href="{% url 'tag-create' %}"><button class="btn btn-primary">New Tag</button></a>
+            </div>
+        </div>
         <ul class="list-group">
             <li class="list-group-item">
                 <div class="row" name="incomp">
@@ -122,39 +118,50 @@
             </li>
             {% endfor %}
         </ul>
-    </div> 
+    </div>
     <div class="col-6" name="tasks-table">
-        <h5>Tasks</h5>
-        <ul class="list-group">
-            {% for task in tasks %}
-            <li class="list-group-item">
-                <div class="row">
-                    <div class="col-auto me-auto">
-                        {{ task.title }}
+        <div class="d-flex justify-content-between mb-3">
+            <div class="d-flex-item">
+                <h5>Tasks</h5>
+            </div>
+            <div class="d-flex-item">
+                <a href="{% url 'task-create' %}"><button class="btn btn-primary">New Task</button></a>
+            </div>
+        </div>
+        <div class="row">
+            <ul class="list-group">
+                {% for task in tasks %}
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-auto me-auto">
+                            {{ task.title }}
+                        </div>
+                        <div class="col-sm-auto">
+                            {{ task.due|date }}
+                        </div>
+                        <div class="col-sm-auto">
+                            <a href="{% url 'task-detail' task.id %}"><i class="fa-solid fa-circle-info"></i></a>
+                        </div>
+                        <div class="col-sm-auto">
+                            <a href="{% url 'task-update' task.id %}"><i class="fa-solid fa-pen-to-square"></i></a>
+                        </div>
+                        <div class="col-sm-auto">
+                            <a href="{% url 'task-delete' task.id %}"><i class="fa-solid fa-trash"></i></a>
+                        </div>
                     </div>
-                    <div class="col-sm-auto">
-                        {{ task.due|date }}
-                    </div>
-                    <div class="col-sm-auto">
-                        <a href="{% url 'task-detail' task.id %}"><i class="fa-solid fa-circle-info"></i></a>
-                    </div>
-                    <div class="col-sm-auto">
-                        <a href="{% url 'task-update' task.id %}"><i class="fa-solid fa-pen-to-square"></i></a>
-                    </div>
-                    <div class="col-sm-auto">
-                        <a href="{% url 'task-delete' task.id %}"><i class="fa-solid fa-trash"></i></a>
-                    </div>                    
-                </div>
-            </li>
-            {% empty %}
-            <li class="list-group-item">
-                <p>No tasks available. Create one now.</p>
-            </li>
-            {% endfor %}
-        </ul>
+                </li>
+                {% empty %}
+                <li class="list-group-item">
+                    <p>No tasks available. Create one now.</p>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
     <div class="col">
-        <h5>Details</h5>
+        <div class="">
+            <h5>Details</h5>
+        </div>
         <ul class="list-group">
             <li class="list-group-item">
                 <div class="row">

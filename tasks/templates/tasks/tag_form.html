@@ -9,9 +9,15 @@
         <form action="" method="post">
             {% csrf_token %}
             {% bootstrap_form form %}
-            <input type="submit" class="btn-primary" value="Save Tag">
+            <div class="btn-toolbar justify-content-between" role="toolbar">
+                <div class="btn-group" role="group">
+                    <a href="{% url 'task' %}" class="btn btn-outline-primary">Go Back</a>
+                </div>
+                <div class="btn-group" role="group">
+                    <input type="submit" class="btn btn-primary" value="Save Tag">
+                </div>
+            </div>
         </form>
-        <a href="{% url 'task' %}">Go Back</a>
     </div>
     <div class="col"></div>
 </div>
