@@ -1,8 +1,8 @@
 # TaskProject
-A todo management web application with REST API using django
+A todo management web application
 
 ## Run Webserver
-***System Prerequisites***: python, pip, venv
+### System Prerequisites: *python, pip, venv*
 
 `git clone https://github.com/gravityfargo/TaskProject.git && cd TaskProject`
 
@@ -12,18 +12,11 @@ A todo management web application with REST API using django
 
 `python3 -m pip install -r requirements.txt`
 
-`python3 manage.py makemigrations tasks`
+`python3 runserver.py`
 
-`python3 manage.py migrate`
+[http://127.0.0.1:42069/](http://127.0.0.1:42069/)
 
-`python3 manage.py createsuperuser`
-
-fix this
-`python3 manage.py loaddata sample.json`
-
-`python3 manage.py runserver`
-
-Navigate to [http://127.0.0.1:42069/](http://127.0.0.1:42069/)
+after initial setup, only `python3 runserver.py` is needed.
 
 
 ## File Structure
