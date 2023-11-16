@@ -1,8 +1,9 @@
 from bootstrap_datepicker_plus.widgets import DatePickerInput
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .models import Task, Tag
+from .forms import TagForm
 
 
 # class based views, create a new object that inherets django provided classes
@@ -23,13 +24,19 @@ class TaskList(LoginRequiredMixin, ListView):
         context['tags'] = Tag.objects.filter(user=self.request.user)
         daystoday = 0
         daysnextseven = 0
+        tagcounts = {}
         for task in context['tasks']:
             if task.days_away_from_due() == 0:
                 daystoday += 1
             if task.days_away_from_due() <= 7:
                 daysnextseven += 1
+
+        for tag in context['tags']:
+            tagcounts[tag] = context['tasks'].filter(tag__title=tag).count()
+        context['tag_counts_dict'] = tagcounts
         context['due_today'] = daystoday
         context['due_next_seven_days'] = daysnextseven
+
 
         
         # future search function
@@ -74,3 +81,14 @@ class TaskDelete(LoginRequiredMixin, DeleteView):
     model = Task
     context_object_name = 'task'
     success_url = reverse_lazy('task')
+
+class TagCreate(LoginRequiredMixin, FormView):
+    template_name = "tasks/tag_form.html"
+    form_class = TagForm
+    success_url = reverse_lazy('task')
+
+    # sets the logged in user as the 'user' for the tag 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.save()
+        return super(TagCreate, self).form_valid(form)
