@@ -6,7 +6,9 @@ urlpatterns = [
     # <a href="{% url 'task-detail' %}">
 
     # urls for templates
+    # same class for two different urls - see the get() method
     path('', TaskList.as_view(), name="task"),
+    path('<int:pk>/', TaskList.as_view(), name='task-with-detail'),
     path("task-create/", TaskCreate.as_view(), name="task-create"),
     path('task/<int:pk>/', TaskDetail.as_view(), name='task-detail'),
     path('task-update/<int:pk>/', TaskUpdate.as_view(), name='task-update'),

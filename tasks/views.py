@@ -15,6 +15,10 @@ class TaskList(LoginRequiredMixin, ListView):
     # {% for task in tasks %}
     context_object_name = 'tasks'
 
+    def get_queryset(self):
+        self.publisher = get_object_or_404(Publisher, name=self.kwargs["publisher"])
+        return Book.objects.filter(publisher=self.publisher)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # when the page is loaded, this class will take the 'task' model object (task table in the database)
