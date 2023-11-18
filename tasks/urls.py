@@ -5,7 +5,6 @@ urlpatterns = [
     # name='' is used for routing buttons and shit
     # <a href="{% url 'task-detail' %}">
 
-    # urls for templates
     # same class for two different urls - see the get() method
     path('', TaskList.as_view(), name="task"),
     path('<int:pk>/', TaskList.as_view(), name='task-with-detail'),

@@ -11,19 +11,28 @@ from .forms import TagForm
 
 class TaskList(LoginRequiredMixin, ListView):
     model = Task
+
     # contextobjectname is the object you can pull data from in the template
     # {% for task in tasks %}
     context_object_name = 'tasks'
+    template_name = 'tasks/task_list.html'
+    
+    def get(self, request, *args, **kwargs):
+        # checks to see if a task primary key was included in the url
+        self.taskDetailID = kwargs.get('pk')
+        return super(TaskList, self).get(request, *args, **kwargs)
 
+    # Used by ListViews - it determines the list of objects that you want to display
     def get_queryset(self):
-        self.publisher = get_object_or_404(Publisher, name=self.kwargs["publisher"])
-        return Book.objects.filter(publisher=self.publisher)
+        qs = super().get_queryset()
+
+        # ** each key-value pair of the dict is passed as a keyword argument
+        self.queryfilters = { 'user': self.request.user }
+        return qs.filter(**self.queryfilters)
 
     def get_context_data(self, **kwargs):
+        # used to populate a dictionary to use as the template context. ListViews will populate the result from get_queryset's return
         context = super().get_context_data(**kwargs)
-        # when the page is loaded, this class will take the 'task' model object (task table in the database)
-        # this filter only allow tasks for the logged in user who sent the request (loaded the page)
-        context['tasks'] = context['tasks'].filter(user=self.request.user)
         context['incomplete'] = context['tasks'].filter(complete=False).count()
         context['tags'] = Tag.objects.filter(user=self.request.user)
         daystoday = 0
@@ -40,16 +49,13 @@ class TaskList(LoginRequiredMixin, ListView):
         context['tag_counts_dict'] = tagcounts
         context['due_today'] = daystoday
         context['due_next_seven_days'] = daysnextseven
+        if self.taskDetailID != None:
+            pk = self.taskDetailID-  1
+            context['task_for_detail_view'] = context['tasks'][pk]
+        else:
+            context['task_for_detail_view'] = "None"
 
 
-        
-        # future search function
-        # # gets text from the 'search' (name of html element) bar in the nav, can be empty
-        # search_input = self.request.GET.get('search') or ''
-        # if search_input:
-        #     # filters the tasks again by the search term
-        #     context['task'] = context['task'].filter(title__icontains = search_input)
-        #     context['search_input'] = search_input
         return context
 
 class TaskDetail(LoginRequiredMixin, DetailView):
