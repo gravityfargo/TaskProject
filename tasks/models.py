@@ -12,6 +12,10 @@ class Tag(models.Model):
     def __str__(self):
         return self.title
 
+    def count(self, user):
+        self.count = Task.objects.filter(user=user, tag=self.pk).count()
+        return self.count
+        
 class Task(models.Model):
     # cascade if user deleted, will deleted its tasks
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)

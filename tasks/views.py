@@ -23,6 +23,7 @@ class TaskList(LoginRequiredMixin, ListView):
         return super(TaskList, self).get(request, *args, **kwargs)
 
     # Used by ListViews - it determines the list of objects that you want to display
+    # the objects are provided from the return of get()
     def get_queryset(self):
         qs = super().get_queryset()
 
@@ -33,28 +34,28 @@ class TaskList(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         # used to populate a dictionary to use as the template context. ListViews will populate the result from get_queryset's return
         context = super().get_context_data(**kwargs)
+
         context['incomplete'] = context['tasks'].filter(complete=False).count()
         context['tags'] = Tag.objects.filter(user=self.request.user)
+        for tag in context['tags']:
+            # execute the method for each tag to get its updated count
+            tag.count(self.request.user)
+
         daystoday = 0
-        daysnextseven = 0
-        tagcounts = {}
+        daysnextseven = 0  
         for task in context['tasks']:
             if task.days_away_from_due() == 0:
                 daystoday += 1
             if task.days_away_from_due() <= 7:
                 daysnextseven += 1
-
-        for tag in context['tags']:
-            tagcounts[tag] = context['tasks'].filter(tag__title=tag).count()
-        context['tag_counts_dict'] = tagcounts
         context['due_today'] = daystoday
         context['due_next_seven_days'] = daysnextseven
+
         if self.taskDetailID != None:
             pk = self.taskDetailID-  1
             context['task_for_detail_view'] = context['tasks'][pk]
         else:
             context['task_for_detail_view'] = "None"
-
 
         return context
 
