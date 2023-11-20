@@ -32,7 +32,7 @@ class Task(models.Model):
     
     def days_since_creation(self):
         return self.created >= datetime.date.today() - datetime.timedelta(days=1)
-
+        
     def days_away_from_due(self):
         if self.due is not None:
             today = datetime.date.today()
@@ -48,3 +48,6 @@ class Task(models.Model):
     # or human-readable singular and plural names
     class Meta:
         ordering = ["complete"]
+        # ffr filtering
+        # Index(Lower("title").desc(), "pub_date", name="lower_title_date_idx")
+        ## creates an index on the lowercased value of the title field in descending order and the pub_date field in the default ascending order.
