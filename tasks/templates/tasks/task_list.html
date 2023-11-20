@@ -131,23 +131,33 @@
         <div class="row">
             <ul class="list-group">
                 {% for task in tasks %}
-                <li class="list-group-item">
-                    <div class="row">
-                        <div class="col-auto me-auto">
-                            {{ task.title }}
+                <li class="list-group-item p-0">
+                    <div class="d-flex ps-0">
+                        <div class="p-0 pt-2 pb-2">
+                            <i class="fa-solid fa-minus fa-rotate-90" style="color: {{ task.tag }} ;"></i>
                         </div>
-                        <div class="col-sm-auto">
+                        <div class="pt-2 pb-2">
+                            <a href="{% url 'task-with-detail' task.id %}" style="text-decoration: none;">
+                                {{ task.title }}
+                            </a>
+                        </div>
+                        <div class="ms-auto p-2">
                             {{ task.due|date }}
                         </div>
-                        <div class="col-sm-auto">
-                            <a href="{% url 'task-with-detail' task.id %}"><i class="fa-solid fa-circle-info"></i></a>
+                        <div class="dropdown ps-1 pe-1">
+                            <button class="btn" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <!-- need to do flex boxes here -->
+                                <li><a href="{% url 'task-update' task.id %}" class="dropdown-item"><i
+                                            class="fa-solid fa-pen-to-square"></i> Edit Task</a></li>
+                                <li><a href="{% url 'task-delete' task.id %}" class="dropdown-item"><i
+                                            class="fa-solid fa-trash"></i> Delete Task</a></li>
+                            </ul>
                         </div>
-                        <div class="col-sm-auto">
-                            <a href="{% url 'task-update' task.id %}"><i class="fa-solid fa-pen-to-square"></i></a>
-                        </div>
-                        <div class="col-sm-auto">
-                            <a href="{% url 'task-delete' task.id %}"><i class="fa-solid fa-trash"></i></a>
-                        </div>
+
                     </div>
                 </li>
                 {% empty %}
@@ -158,8 +168,9 @@
             </ul>
         </div>
     </div>
+
     {% if task_for_detail_view != "None" %}
-    <div class="col-3">
+    <div class="col-3" name="details-pane">
         <div class="d-flex justify-content-between mb-3">
             <div class="d-flex-item">
                 <h5>Task Details</h5>
@@ -171,46 +182,44 @@
         <ul class="list-group">
             <li class="list-group-item">
                 <div class="row">
-                        <div class="col-3">
-                            <b>Title:</b>
-                        </div>
-                        <div class="col-auto">
-                            {{ task_for_detail_view.title }}
-                        </div>
+                    <div class="col-3">
+                        <b>Title:</b>
+                    </div>
+                    <div class="col-auto">
+                        {{ task_for_detail_view.title }}
+                    </div>
                 </div>
             </li>
             <li class="list-group-item">
                 <div class="row">
-                        <div class="col-3">
-                            <b>Tag:</b>
-                        </div>
-                        <div class="col-auto">
-                            {{ task_for_detail_view.tag }}
-                        </div>
+                    <div class="col-3">
+                        <b>Tag:</b>
+                    </div>
+                    <div class="col-auto">
+                        {{ task_for_detail_view.tag }}
+                    </div>
                 </div>
             </li>
             <li class="list-group-item">
                 <div class="row">
-                        <div class="col-3">
-                            <b>Description:</b>
-                        </div>
-                        <div class="col-auto">
-                            {{ task_for_detail_view.description }}
-                        </div>
+                    <div class="col-3">
+                        <b>Description:</b>
+                    </div>
+                    <div class="col-auto">
+                        {{ task_for_detail_view.description }}
+                    </div>
                 </div>
             </li>
             <li class="list-group-item">
                 <div class="row">
-                        <div class="col-3">
-                            <b>Due Date:</b>
-                        </div>
-                        <div class="col-auto">
-                            {{ task_for_detail_view.due }}
-                        </div>
+                    <div class="col-3">
+                        <b>Due Date:</b>
+                    </div>
+                    <div class="col-auto">
+                        {{ task_for_detail_view.due }}
+                    </div>
                 </div>
             </li>
         </ul>
-    </div>
-    {% endif %}
-</div>
-{% endblock taskscontent %}
+    </div {% endif %} </div>
+    {% endblock taskscontent %}
