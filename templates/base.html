@@ -46,6 +46,11 @@
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                 </ul>
+                {% if request.user.is_superuser %}
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="{% url 'admin:index' %}">Admin Panel</a></li>
+                </ul>
+                {% endif %}
               </li>
             </ul>
             {% endif %}
