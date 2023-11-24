@@ -521,5 +521,14 @@
             "due": "2024-01-15",
             "modified": "2023-11-16T20:41:40.719Z"
         }
+    },
+    {
+        "model": "dashboard.profile",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "dashboardmodules": "",
+            "tasksortorder": ""
+        }
     }
 ]
