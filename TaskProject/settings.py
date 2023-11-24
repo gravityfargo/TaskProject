@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'dashboard.apps.DashboardConfig',
     'bootstrap5',
     'bootstrap_datepicker_plus',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
