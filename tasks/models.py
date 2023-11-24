@@ -2,26 +2,30 @@ import datetime
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Tag(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=200, null=True)
     color = models.CharField(max_length=200, null=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now_add=False, null=True, blank=True)
-  
+
     def __str__(self):
         return self.title
 
     def count(self, user):
         self.count = Task.objects.filter(user=user, tag=self.pk).count()
         return self.count
-        
+
+
 class Task(models.Model):
     # cascade if user deleted, will deleted its tasks
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=200, null=True)
     description = models.TextField(null=True, blank=True)
-    tag = models.ForeignKey(Tag, on_delete=models.CASCADE, null=True, blank=True, related_name="tasks")
+    tag = models.ForeignKey(
+        Tag, on_delete=models.CASCADE, null=True, blank=True, related_name="tasks"
+    )
     complete = models.BooleanField(default=False)
     created = models.DateField(auto_now_add=True)
     due = models.DateField(auto_now_add=False, null=True, blank=True)
@@ -29,10 +33,10 @@ class Task(models.Model):
 
     def __str__(self):
         return self.title
-    
+
     def days_since_creation(self):
         return self.created >= datetime.date.today() - datetime.timedelta(days=1)
-        
+
     def days_away_from_due(self):
         if self.due is not None:
             today = datetime.date.today()
