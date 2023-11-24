@@ -2,9 +2,10 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import FormView, View
+from django.views.generic import FormView, TemplateView
+
 class GlobalLogin(LoginView):
     template_name = 'login.html'
     fields = "__all__"
@@ -30,6 +31,9 @@ class GlobalRegister(FormView):
             return redirect('dashboard')
         return super(GlobalRegister, self).get(*args, **kwargs)
 
-class DashboardView(LoginRequiredMixin, View):
-    def get(self, request, *args, **kwargs):
-        return render(request, "dashboard.html")
+class DashboardView(LoginRequiredMixin, TemplateView):
+    template_name = "dashboard.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
