@@ -1,7 +1,7 @@
 {% extends "tasks/tasks-sub-base.html" %}
 {% block taskscontent %}
-<div class="row p-2" name="main-content">
-    <div class="col-3" name="side-tag-pane">
+<div class="row justify-content-md-center" name="main-content">
+    <div class="col-lg-2" name="side-tag-pane">
         <div class="d-flex justify-content-between mb-3">
             <div class="d-flex-item">
                 <h5>Tag Filters</h5>
@@ -119,7 +119,7 @@
             {% endfor %}
         </ul>
     </div>
-    <div class="col" name="tasks-table">
+    <div class="col-lg-4" name="tasks-table">
         <div class="d-flex justify-content-between mb-3">
             <div class="d-flex-item">
                 <h5>Tasks</h5>
@@ -137,7 +137,7 @@
                             <i class="fa-solid fa-minus fa-rotate-90" style="color: {{ task.tag }} ;"></i>
                         </div>
                         <div class="pt-2 pb-2">
-                            <a href="{% url 'task-with-detail' task.id %}" style="text-decoration: none;">
+                            <a href="{% url 'task-with-detail' task.id %}" style="text-decoration: none;" class="fs-5">
                                 {{ task.title }}
                             </a>
                         </div>
@@ -168,9 +168,8 @@
             </ul>
         </div>
     </div>
-
     {% if task_for_detail_view != "None" %}
-    <div class="col-3" name="details-pane">
+    <div class="col-lg-2" name="details-pane">
         <div class="d-flex justify-content-between mb-3">
             <div class="d-flex-item">
                 <h5>Task Details</h5>
@@ -221,5 +220,11 @@
                 </div>
             </li>
         </ul>
-    </div {% endif %} </div>
+    </div> 
+    {% else %}
+    <div class="col-lg-2" name="details-pane-empty">
+
+    </div>
+    {% endif %} 
+</div>
     {% endblock taskscontent %}
