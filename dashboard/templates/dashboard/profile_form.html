@@ -1,0 +1,24 @@
+{% extends "dashboard/dashboard-sub-base.html" %}
+{% block dashboardcontent %}
+{% load bootstrap5 %}
+{{ form.media }}
+<div class="row">
+    <div class="col"></div>
+    <div class="col">
+        <h4>Create Tag</h4>
+        <form action="" method="post">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <div class="btn-toolbar justify-content-between" role="toolbar">
+                <div class="btn-group" role="group">
+                    <a href="{% url 'dashboard' %}" class="btn btn-outline-primary">Go Back</a>
+                </div>
+                <div class="btn-group" role="group">
+                    <input type="submit" class="btn btn-primary" value="Save">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col"></div>
+</div>
+{% endblock dashboardcontent %}

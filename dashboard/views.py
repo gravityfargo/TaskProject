@@ -2,9 +2,12 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
+from django.contrib.auth.models import User
 from django.urls import reverse_lazy
-from django.views.generic import FormView, TemplateView
+from django.views.generic import FormView, TemplateView, UpdateView
+from .models import Profile
+from .forms import ProfileForm
 
 class GlobalLogin(LoginView):
     template_name = 'login.html'
@@ -32,8 +35,22 @@ class GlobalRegister(FormView):
         return super(GlobalRegister, self).get(*args, **kwargs)
 
 class DashboardView(LoginRequiredMixin, TemplateView):
-    template_name = "dashboard.html"
+    template_name = "dashboard/dashboard.html"
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+    
+class ProfileUpdate(LoginRequiredMixin, UpdateView):
+    template_name = "dashboard/profile_form.html"
+    form_class = ProfileForm
+    model = Profile
+    success_url = reverse_lazy("dashboard")
+    
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.save()
+        return super(ProfileUpdate, self).form_valid(form)
