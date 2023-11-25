@@ -1,5 +1,6 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 
 <head>
   <meta charset="utf-8" />
@@ -12,10 +13,12 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
     crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
   <title>TaskProject - {% block title %}{% endblock %}</title>
+
 </head>
 
-<body>
+<body class="custom-bg-dark-1">
   <div id="content">
     <div class="row mb-3">
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -61,7 +64,8 @@
                     data-bs-toggle="dropdown" aria-expanded="false">
                     {{ request.user }}
                   </a>
-                  <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDarkDropdownMenuLink">
+                  <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end"
+                    aria-labelledby="navbarDarkDropdownMenuLink">
                     <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                     {% if user.is_superuser %}
                     <li><a class="dropdown-item" href="{% url 'admin:index' %}">Admin Panel</a></li>
