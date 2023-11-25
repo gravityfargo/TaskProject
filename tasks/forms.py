@@ -1,10 +1,10 @@
 from django.forms import TextInput
 from bootstrap_datepicker_plus.widgets import DatePickerInput
-from django import forms
+from django.forms import ModelForm
 from .models import Tag, Task
 
 
-class TagForm(forms.ModelForm):
+class TagForm(ModelForm):
     class Meta:
         model = Tag
         fields = ["title", "color"]
@@ -12,7 +12,7 @@ class TagForm(forms.ModelForm):
         widgets = {"color": TextInput(attrs={"type": "color"})}
 
 
-class TaskForm(forms.ModelForm):
+class TaskForm(ModelForm):
     class Meta:
         model = Task
         fields = ["title", "description", "tag", "due"]

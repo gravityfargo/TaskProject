@@ -66,10 +66,11 @@
                   </a>
                   <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end"
                     aria-labelledby="navbarDarkDropdownMenuLink">
-                    <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                    <li><a class="dropdown-item" href="{% url 'profile' request.user %}">User Settings</a></li>
                     {% if user.is_superuser %}
-                    <li><a class="dropdown-item" href="{% url 'admin:index' %}">Admin Panel</a></li>
+                    <li><a class="dropdown-item" href="{% url 'admin:index' %}">Admin Settings</a></li>
                     {% endif %}
+                    <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                   </ul>
                 </li>
               </ul>
