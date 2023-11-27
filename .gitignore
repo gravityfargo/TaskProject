@@ -10,4 +10,4 @@ db.sqlite3
 .venv/
 *migrations*
 notes
-dashboard/fixtures/updatedFixtureData.json
+*updatedFixtureData.json

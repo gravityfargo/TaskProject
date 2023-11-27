@@ -527,8 +527,9 @@
         "pk": 1,
         "fields": {
             "user": 1,
-            "dashboardmodules": "",
-            "tasksortorder": ""
+            "dashboard_modules": "",
+            "task_sort_order": "",
+            "show_api_endpoints": false
         }
     }
 ]
