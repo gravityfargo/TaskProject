@@ -27,7 +27,8 @@ class TaskList(LoginRequiredMixin, ListView):
     def get_queryset(self):
         qs = super().get_queryset()
 
-        # ** each key-value pair of the dict is passed as a keyword argument
+        # each key-value pair of the dict is passed as a keyword argument
+        # used to filter all results before get_context_data
         self.queryfilters = {"user": self.request.user}
         return qs.filter(**self.queryfilters)
 
