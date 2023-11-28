@@ -1,171 +1,101 @@
 {% extends "tasks/tasks-sub-base.html" %}
 {% block taskscontent %}
-<div class="row justify-content-md-center" name="main-content">
-    <div class="col-lg-2" name="side-tag-pane">
-        <div class="d-flex justify-content-between mb-3">
-            <div class="d-flex-item">
-                <h5>Tag Filters</h5>
-            </div>
-            <div class="d-flex-item">
-                <a href="{% url 'tag-create' %}"><button class="btn btn-primary">New Tag</button></a>
-            </div>
-        </div>
-        <ul class="list-group">
-            <li class="list-group-item">
-                <div class="row" name="incomp">
-                    <div class="col-sm-auto">
-                        <a href="" name="incomplete-filter">
-                            <div name="icon">
-                                <i class="fa-solid fa-list"></i>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-auto me-auto">
-                        <a href="" name="incomplete-filter">
-                            <span name="title">Incomplete</span>
-                        </a>
-                    </div>
-                    <div class="col-sm-auto" name="count">
-                        <a href="" name="incomplete-filter">
-                            {{ incomplete }}
-                        </a>
-                    </div>
-                    <div class="col-sm-auto" name="edit-button">
-                        <a href="" name="edit-button-link">
-                            <i class="fa-solid fa-ellipsis-vertical"></i>
-                        </a>
-                    </div>
-                </div>
-            </li>
-            <li class="list-group-item" name="due-today">
-                <div class="row" name="today">
-                    <div class="col-sm-auto">
-                        <a href="" name="today-filter">
-                            <div name="icon">
-                                <i class="fa-solid fa-calendar-day"></i>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-auto me-auto">
-                        <a href="" name="today-filter">
-                            <span name="title">Due Today</span>
-                        </a>
-                    </div>
-                    <div class="col-sm-auto" name="count">
-                        <a href="" name="today-filter">
-                            {{ due_today }}
-                        </a>
-                    </div>
-                    <div class="col-sm-auto" name="edit-button">
-                        <a href="" name="edit-button-link">
-                            <i class="fa-solid fa-ellipsis-vertical"></i>
-                        </a>
-                    </div>
-                </div>
-            </li>
-            <li class="list-group-item" name="next-seven">
-                <div class="row" name="next-seven">
-                    <div class="col-sm-auto">
-                        <a href="" name="week-filter">
-                            <div name="icon">
-                                <i class="fa-solid fa-calendar-week"></i>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-auto me-auto">
-                        <a href="" name="week-filter">
-                            <span name="title">Due Next 7 days</span>
-                        </a>
-                    </div>
-                    <div class="col-sm-auto" name="count">
-                        <a href="" name="incomplete-filter">
-                            {{ due_next_seven_days }}
-                        </a>
-                    </div>
-                    <div class="col-sm-auto" name="edit-button">
-                        <a href="" name="edit-button-link">
-                            <i class="fa-solid fa-ellipsis-vertical"></i>
-                        </a>
-                    </div>
-                </div>
-            </li>
-            {% for tag in tags %}
-            <li class="list-group-item">
-                <div class="row" name="TAGTITLE">
-                    <div class="col-sm-auto">
-                        <a href="" name="TAGTITLE-filter">
-                            <div name="icon">
-                                <i class="fa-solid fa-circle" style="color: {{ tag.color }} ;"></i>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-auto me-auto">
-                        <a href="" name="TAGTITLE-filter">
-                            <span name="title">{{ tag.title }}</span>
-                        </a>
-                    </div>
-                    <div class="col-sm-auto" name="count">
-                        <a href="" name="TAGTITLE-filter">
-                            {{ tag.count }}
-                        </a>
-                    </div>
-                    <div class="col-sm-auto" name="edit-button">
-                        <a href="" name="edit-button-link">
-                            <i class="fa-solid fa-ellipsis-vertical"></i>
-                        </a>
-                    </div>
-                </div>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="col-lg-4" name="tasks-table">
-        <div class="d-flex justify-content-between mb-3">
-            <div class="d-flex-item">
-                <h5>Tasks</h5>
-            </div>
-            <div class="d-flex-item">
-                <a href="{% url 'task-create' %}"><button class="btn btn-primary">New Task</button></a>
-            </div>
-        </div>
-        <div class="row">
-            <ul class="list-group">
-                {% for task in tasks %}
-                <li class="list-group-item p-0">
-                    <div class="d-flex ps-0">
-                        <div class="p-0 pt-2 pb-2">
-                            <i class="fa-solid fa-minus fa-rotate-90" style="color: {{ task.tag }} ;"></i>
-                        </div>
-                        <div class="pt-2 pb-2">
-                            <a href="{% url 'task-with-detail' task.id %}" style="text-decoration: none;" class="fs-5">
-                                {{ task.title }}
-                            </a>
-                        </div>
-                        <div class="ms-auto p-2">
-                            {{ task.due|date }}
-                        </div>
-                        <div class="dropdown ps-1 pe-1">
-                            <button class="btn" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <!-- need to do flex boxes here -->
-                                <li><a href="{% url 'task-update' task.id %}" class="dropdown-item"><i
-                                            class="fa-solid fa-pen-to-square"></i> Edit Task</a></li>
-                                <li><a href="{% url 'task-delete' task.id %}" class="dropdown-item"><i
-                                            class="fa-solid fa-trash"></i> Delete Task</a></li>
-                            </ul>
-                        </div>
 
-                    </div>
-                </li>
-                {% empty %}
-                <li class="list-group-item">
-                    <p>No tasks available. Create one now.</p>
-                </li>
-                {% endfor %}
-            </ul>
+<div class="row justify-content-md-center p-3" name="button-bar">
+    <div class="col-lg-5 text-center">
+        <div class="btn-group" role="group">
+            <button role="button" class="btn btn-outline-primary" id="status_incomplete_filterbutton">
+                <i class="fa-solid fa-list"></i>
+                <span name="title">Incomplete:</span>
+                {{ incomplete }}
+            </button>
+            <button role="button" class="btn btn-outline-primary" id="due_today_filterbutton">
+                <i class="fa-solid fa-calendar-day"></i>
+                <span name="title">Due Today:</span>
+                {{ due_today }}
+            </button>
+            <button role="button" class="btn btn-outline-primary" id="due_week_filterbutton">
+                <i class="fa-solid fa-calendar-week"></i>
+                <span name="title">This Week:</span>
+                {{ due_next_seven_days }}
+            </button>
+        </div>
+    </div>
+    <div class="col-lg-5 text-center">
+        <div class="btn-group" role="group">
+            <a href="{% url 'tag-create' %}" class="btn btn-outline-primary">New Tag</a>
+            <a href="{% url 'task-create' %}" class="btn btn-outline-primary">New Task</a>
+        </div>
+    </div>
+</div>
+<div class="row justify-content-md-center p-3" name="filter-pills">
+    <div class="col-lg-5">
+        <button type="button" class="btn btn-outline-secondary btn-outline-primary" id="tag_none_filterbutton"> All
+            Tasks
+        </button>
+        {% for tag in tags %}
+        <style>
+            .btn-outline- {
+                    {
+                    tag.title
+                }
+            }
+
+                {
+                border-color: {
+                        {
+                        tag.color
+                    }
+                }
+
+                ;
+            }
+        </style>
+        <button type="button" class="btn btn-outline-secondary btn-outline-{{tag.title}}"
+            id="tag_{{tag.title}}_filterbutton">
+            {{ tag.title }} {{ tag.count }}
+        </button>
+        {% endfor %}
+    </div>
+</div>
+<div class="row justify-content-md-center p-3" name="main-content">
+    <div class="col-lg-5" name="tasks-table">
+        <div class="row">
+            <table class="table table-bordered table-hover" id="taskstable" style="text-align: left;">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Title</th>
+                        <th>Due</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in tasks %}
+                    <tr>
+                        <td>{{ task.tag }}</td>
+                        <td>{{ task.title }}<i class="fa-solid fa-minus fa-rotate-90" style="color: {{ task.tag }}"></i>
+                        </td>
+                        <td>{{ task.due|date:"m/d" }}</td>
+                        <td>
+                            <div class="dropdown ps-1 pe-1">
+                                <button class="btn" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <!-- need to do flex boxes here -->
+                                    <li><a href="{% url 'task-update' task.id %}" class="dropdown-item"><i
+                                                class="fa-solid fa-pen-to-square"></i> Edit Task</a></li>
+                                    <li><a href="{% url 'task-delete' task.id %}" class="dropdown-item"><i
+                                                class="fa-solid fa-trash"></i> Delete Task</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
     {% if task_for_detail_view != "None" %}
@@ -181,7 +111,7 @@
         <ul class="list-group">
             <li class="list-group-item">
                 <div class="row">
-                    <div class="col-3">
+                    <div class="col">
                         <b>Title:</b>
                     </div>
                     <div class="col-auto">
@@ -191,7 +121,7 @@
             </li>
             <li class="list-group-item">
                 <div class="row">
-                    <div class="col-3">
+                    <div class="col">
                         <b>Tag:</b>
                     </div>
                     <div class="col-auto">
@@ -201,7 +131,7 @@
             </li>
             <li class="list-group-item">
                 <div class="row">
-                    <div class="col-3">
+                    <div class="col">
                         <b>Description:</b>
                     </div>
                     <div class="col-auto">
@@ -211,7 +141,7 @@
             </li>
             <li class="list-group-item">
                 <div class="row">
-                    <div class="col-3">
+                    <div class="col">
                         <b>Due Date:</b>
                     </div>
                     <div class="col-auto">
@@ -220,11 +150,64 @@
                 </div>
             </li>
         </ul>
-    </div> 
-    {% else %}
-    <div class="col-lg-2" name="details-pane-empty">
-
     </div>
-    {% endif %} 
+    {% endif %}
 </div>
-    {% endblock taskscontent %}
+{% endblock taskscontent %}
+
+{% block js %}
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        function filterDue(centerPart) {
+            // this needs to filter out if a due date is due today or this week
+            console.log("Due: " + centerPart);
+            table.column(2).search(value).draw()
+        }
+
+        function filterTag(centerPart) {
+            console.log("Tag: " + centerPart);
+            if (centerPart == "none") {
+                table.column(0).search("").draw()
+            }
+            else {
+                table.column(0).search(centerPart).draw()
+            }
+        }
+
+        var table = $('#taskstable').DataTable({
+            "paging": true,
+            "autoWidth": false,
+            "ordering": true,
+            "columnDefs": [
+                { "width": "1%", "targets": 0 },
+                { "width": "70%", "targets": 1 },
+                { "width": "28%", "targets": 2 },
+                { "width": "1%", "targets": 3 },
+            ],
+        }
+        );
+
+        $("button[id$='_filterbutton']").click(function () {
+            var idParts = this.id.split('_');
+            var prefix = idParts[0];
+            var centerPart = idParts[1];
+            switch (prefix) {
+                case 'due':
+                    filterDue(centerPart);
+                    break;
+                case 'tag':
+                    filterTag(centerPart);
+                    break;
+                case 'status':
+                    // I need to figure this out at some point
+                    break
+                default:
+                    console.log("No matching function for prefix: " + prefix);
+            }
+        });
+    });
+</script>
+{% endblock js %}
