@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'tasks.apps.TasksConfig',
     'dashboard.apps.DashboardConfig',
-    'bootstrap5',
+    'django_bootstrap5',
     'bootstrap_datepicker_plus',
     'rest_framework',
 ]
