@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 
 
 class Tag(models.Model):
+    # TODO: need to prevent title from being any defualt filter option ie
+    # none, incomplete
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=200, null=True)
     color = models.CharField(max_length=200, null=True)
