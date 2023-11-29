@@ -35,20 +35,8 @@
         </button>
         {% for tag in tags %}
         <style>
-            .btn-outline- {
-                    {
-                    tag.title
-                }
-            }
-
-                {
-                border-color: {
-                        {
-                        tag.color
-                    }
-                }
-
-                ;
+            .btn-outline-{{ tag.title }} {
+                border-color: {{ tag.color }};
             }
         </style>
         <button type="button" class="btn btn-outline-secondary btn-outline-{{tag.title}}"
@@ -61,22 +49,21 @@
 <div class="row justify-content-md-center p-3" name="main-content">
     <div class="col-lg-5" name="tasks-table">
         <div class="row">
-            <table class="table table-bordered table-hover" id="taskstable" style="text-align: left;">
+            <table class="table table-borderless table-hover" id="taskstable" style="text-align: left;">
                 <thead>
                     <tr>
-                        <th></th>
                         <th>Title</th>
-                        <th>Due</th>
+                        <th>Due in Days</th>
+                        <th>Tag</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for task in tasks %}
                     <tr>
+                        <td><i class="fa-solid fa-minus fa-rotate-90" style="color: {{ task.tag }}"></i> {{ task.title }}</td>
+                        <td>{{ task.days_away_from_due }}</td>
                         <td>{{ task.tag }}</td>
-                        <td>{{ task.title }}<i class="fa-solid fa-minus fa-rotate-90" style="color: {{ task.tag }}"></i>
-                        </td>
-                        <td>{{ task.due|date:"m/d" }}</td>
                         <td>
                             <div class="dropdown ps-1 pe-1">
                                 <button class="btn" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
@@ -156,24 +143,21 @@
 {% endblock taskscontent %}
 
 {% block js %}
-<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
-
 <script>
     $(document).ready(function () {
         function filterDue(centerPart) {
             // this needs to filter out if a due date is due today or this week
             console.log("Due: " + centerPart);
-            table.column(2).search(value).draw()
+            table.column(1).search(value).draw()
         }
 
         function filterTag(centerPart) {
             console.log("Tag: " + centerPart);
             if (centerPart == "none") {
-                table.column(0).search("").draw()
+                table.column(2).search("").draw()
             }
             else {
-                table.column(0).search(centerPart).draw()
+                table.column(2).search(centerPart).draw()
             }
         }
 
@@ -182,9 +166,9 @@
             "autoWidth": false,
             "ordering": true,
             "columnDefs": [
-                { "width": "1%", "targets": 0 },
-                { "width": "70%", "targets": 1 },
-                { "width": "28%", "targets": 2 },
+                { "width": "1%", "targets": 2 },
+                { "width": "70%", "targets": 0 },
+                { "width": "28%", "targets": 1 },
                 { "width": "1%", "targets": 3 },
             ],
         }
