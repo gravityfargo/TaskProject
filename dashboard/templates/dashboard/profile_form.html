@@ -1,6 +1,9 @@
 {% extends "dashboard/dashboard-sub-base.html" %}
 {% block dashboardcontent %}
-{% load bootstrap5 %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
 {{ form.media }}
 <div class="row">
     <div class="col"></div>
