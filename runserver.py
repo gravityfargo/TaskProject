@@ -1,4 +1,4 @@
-import subprocess, os, sqlite3, json
+import subprocess, os, json
 from datetime import date, timedelta
 
 today = date.today()
@@ -21,7 +21,7 @@ if not os.path.isfile("db.sqlite3"):
                 i["fields"]['due'] = str(today)
             elif i["fields"]['due'] =='2023-11-17':
                 i["fields"]['due'] = str(threedays)
-            elif i["fields"]['due'] =='2023-11-18':
+            elif i["fields"]['due'] =='2023-11-23':
                 i["fields"]['due'] = str(sevendays)
             elif i["fields"]['due'] =='2023-11-19':
                 i["fields"]['due'] = str(thirtydays)
