@@ -17,7 +17,7 @@
   <!-- datatables css -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
   <!-- jquery -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <!-- static css -->
   <link rel="stylesheet" href="{% static 'style.css' %}">
   <title>TaskProject - {% block title %}{% endblock %}</title>
@@ -34,7 +34,7 @@
             aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link {% block activelinkdashboard %}{% endblock activelinkdashboard %}"
@@ -47,7 +47,7 @@
             </ul>
             {% if request.user.is_authenticated %}
 
-            <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+            <div class="navbar-collapse" id="navbarNavDarkDropdown">
               <ul class="navbar-nav me-auto">
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
@@ -62,7 +62,7 @@
               </ul>
             </div>
 
-            <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+            <div class="navbar-collapse" id="navbarNavDarkDropdown">
               <ul class="navbar-nav ms-auto">
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
