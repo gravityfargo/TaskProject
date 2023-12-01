@@ -4,7 +4,9 @@ A todo management web application
 ## Run Webserver
 ### System Prerequisites: *python, pip, venv*
 
-`git clone https://github.com/gravityfargo/TaskProject.git && cd TaskProject`
+`git clone https://github.com/gravityfargo/TaskProject.git`
+
+`cd TaskProject`
 
 `python3 -m venv .venv`
 
