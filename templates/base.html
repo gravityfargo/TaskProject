@@ -20,7 +20,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <!-- static css -->
   <link rel="stylesheet" href="{% static 'style.css' %}">
-  <title>TaskProject - {% block title %}{% endblock %}</title>
+  <title>TaskProject - {% block title %}{% endblock title %}</title>
 </head>
 
 <body class="custom-bg-dark-1">
@@ -46,6 +46,7 @@
               </li>
             </ul>
             {% if request.user.is_authenticated %}
+            {% block additionalnavitems%}{% endblock additionalnavitems%}
 
             <div class="navbar-collapse" id="navbarNavDarkDropdown">
               <ul class="navbar-nav me-auto">
@@ -85,7 +86,7 @@
         </div>
       </nav>
     </div>
-    {% block content %}{% endblock %}
+    {% block content %}{% endblock content %}
   </div>
   <!-- Scripts per page as needed -->
   {% block js %}

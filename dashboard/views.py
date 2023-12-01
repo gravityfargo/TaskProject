@@ -48,7 +48,12 @@ class ProfileUpdate(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("dashboard")
     
     def get_object(self, queryset=None):
-        return self.request.user
+        user = User.objects.get(username=self.request.user)
+        return user
+    
+    def get_object(self):
+        
+        return Profile.objects.get(user=self.request.user.pk)
 
     def form_valid(self, form):
         form.instance.user = self.request.user

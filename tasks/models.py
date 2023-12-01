@@ -18,6 +18,8 @@ class Tag(models.Model):
     def count(self, user):
         self.count = Task.objects.filter(user=user, tag=self.pk).count()
         return self.count
+    class Meta: 
+        verbose_name = 'Tag'
 
 
 class Task(models.Model):
@@ -26,7 +28,7 @@ class Task(models.Model):
     title = models.CharField(max_length=200, null=True)
     description = models.TextField(null=True, blank=True)
     tag = models.ForeignKey(
-        Tag, on_delete=models.CASCADE, null=True, blank=True, related_name="tasks"
+        Tag, on_delete=models.CASCADE, default=1, related_name="tasks"
     )
     complete = models.BooleanField(default=False)
     created = models.DateField(auto_now_add=True)
@@ -52,8 +54,7 @@ class Task(models.Model):
     # such as ordering options (like i.e. sorting),
     # database table name (db_table),
     # or human-readable singular and plural names
-    class Meta:
+    class Meta: 
         ordering = ["complete"]
-        # ffr filtering
-        # Index(Lower("title").desc(), "pub_date", name="lower_title_date_idx")
-        ## creates an index on the lowercased value of the title field in descending order and the pub_date field in the default ascending order.
+        db_table = 'tasks'
+        verbose_name = 'Task'

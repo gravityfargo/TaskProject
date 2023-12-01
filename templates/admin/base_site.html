@@ -1,0 +1,28 @@
+{% extends "admin/base.html" %}
+
+
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block branding %}
+<style>
+    body {
+        font-family: Helvetica;
+    }
+
+    #header {
+        background: #212529;
+     }
+    .module h2, .module caption, .inline-group h2 {
+        background: #212529;
+     }
+
+</style>
+<h1 id="site-name">
+    <a href="{% url 'dashboard' %}" style="color: white; font-weight: bold;">
+        TaskProject Admin
+    </a>
+</h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

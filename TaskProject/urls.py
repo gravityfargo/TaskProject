@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.views import LogoutView
- 
+
 urlpatterns = [
     # admin panel is a built in django feature
     path('admin/', admin.site.urls),

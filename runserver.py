@@ -16,17 +16,18 @@ if not os.path.isfile("db.sqlite3"):
         
     # to test filters, we need the due dates to be relative to the current day, so updateing here
     for i in data:
-        if i['model'] == "tasks.task":
-            if i["fields"]['due'] == '2023-11-16':
-                i["fields"]['due'] = str(today)
-            elif i["fields"]['due'] =='2023-11-17':
-                i["fields"]['due'] = str(threedays)
-            elif i["fields"]['due'] =='2023-11-23':
-                i["fields"]['due'] = str(sevendays)
-            elif i["fields"]['due'] =='2023-11-19':
-                i["fields"]['due'] = str(thirtydays)
-            elif i["fields"]['due'] =='2023-11-15':
-                i["fields"]['due'] = str(sixtydays)
+        if 'due' in i["fields"].keys():
+            if i['model'] == "tasks.task":
+                if i["fields"]['due'] == '2023-11-16':
+                    i["fields"]['due'] = str(today)
+                elif i["fields"]['due'] =='2023-11-17':
+                    i["fields"]['due'] = str(threedays)
+                elif i["fields"]['due'] =='2023-11-23':
+                    i["fields"]['due'] = str(sevendays)
+                elif i["fields"]['due'] =='2023-11-19':
+                    i["fields"]['due'] = str(thirtydays)
+                elif i["fields"]['due'] =='2023-11-15':
+                    i["fields"]['due'] = str(sixtydays)
     
     # save the file
     with open("dashboard/fixtures/updatedFixtureData.json", "w") as fixtureData:

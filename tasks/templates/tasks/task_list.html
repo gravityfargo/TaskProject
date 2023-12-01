@@ -4,11 +4,13 @@
 <div class="row justify-content-md-center p-3" name="button-bar">
     <div class="col-lg-5 text-center">
         <div class="btn-group" role="group">
-            <button role="button" class="btn btn-outline-primary" id="status_incomplete_filterbutton">
+            <!-- <button role="button" class="btn btn-outline-primary" id="status_incomplete_filterbutton">
                 <i class="fa-solid fa-list"></i>
                 <span name="title">Incomplete:</span>
                 {{ incomplete }}
-            </button>
+            </button> -->
+            <button type="button" class="btn btn-outline-primary" id="tag_none_filterbutton"> All
+                Tasks</button>
             <button role="button" class="btn btn-outline-primary" id="due_today_filterbutton">
                 <i class="fa-solid fa-calendar-day"></i>
                 <span name="title">Due Today:</span>
@@ -30,9 +32,6 @@
 </div>
 <div class="row justify-content-md-center p-3" name="filter-pills">
     <div class="col-lg-5">
-        <button type="button" class="btn btn-outline-secondary btn-outline-primary" id="tag_none_filterbutton"> All
-            Tasks
-        </button>
         {% for tag in tags %}
         <style>
             .btn-outline-{{ tag.title }} {
@@ -61,8 +60,8 @@
                 <tbody>
                     {% for task in tasks %}
                     <tr>
-                        <td><i class="fa-solid fa-minus fa-rotate-90" style="color: {{ task.tag }}"></i> {{ task.title }}</td>
-                        <td>{{ task.days_away_from_due }}</td>
+                        <td><i class="fa-solid fa-minus fa-rotate-90" style="color: {{ task.tag }}"></i> <a href="{% url 'task-with-detail' pk=task.pk %}">{{ task.title }}</a></td>
+                        <td>{% if task.days_away_from_due != None %}{{ task.days_away_from_due }}{% endif %}</td>
                         <td>{{ task.tag }}</td>
                         <td>
                             <div class="dropdown ps-1 pe-1">
@@ -92,6 +91,11 @@
                 <h5>Task Details</h5>
             </div>
             <div class="d-flex-item">
+                <div class="btn-group">
+                    <!-- need to do flex boxes here -->
+                    <a href="{% url 'task-update' task_for_detail_view.id %}" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Edit Task</a>
+                    <a href="{% url 'task-delete' task_for_detail_view.id %}" class="btn btn-primary"><i class="fa-solid fa-trash"></i> Delete Task</a>
+                </div>
                 <a href="{% url 'task' %}"><button class="btn btn-primary"><i class="fa-solid fa-x"></i></button></a>
             </div>
         </div>
@@ -145,16 +149,25 @@
 {% block js %}
 <script>
     $(document).ready(function () {
+
         function filterDue(centerPart) {
             // this needs to filter out if a due date is due today or this week
             console.log("Due: " + centerPart);
-            table.column(1).search(value).draw()
+            if(centerPart == "today") {
+                table.column(1).search(0).draw()
+            }
+            else if (centerPart == "week") {
+                regExSearch = '^[0-7]$'
+                table.column(1).search(regExSearch, true, false).draw()
+                
+            }
         }
 
         function filterTag(centerPart) {
             console.log("Tag: " + centerPart);
             if (centerPart == "none") {
                 table.column(2).search("").draw()
+                table.column(1).search("").draw()
             }
             else {
                 table.column(2).search(centerPart).draw()

@@ -9,6 +9,8 @@ urlpatterns = [
     # same class for two different urls - see the get() method
     path('', TaskList.as_view(), name="task"),
     path('<int:pk>/', TaskList.as_view(), name='task-with-detail'),
+    path('by-tag/<int:tagpk>/', TaskList.as_view(), name='tasklist-by-tag'),
+    path('by-tag/<int:tagpk>/<int:pk>/', TaskList.as_view(), name='tasklist-by-tag-with-detail'),
     path("task-create/", TaskCreate.as_view(), name="task-create"),
     path('task-update/<int:pk>/', TaskUpdate.as_view(), name='task-update'),
     path('task-delete/<int:pk>/', TaskDelete.as_view(), name='task-delete'),

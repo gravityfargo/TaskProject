@@ -20,6 +20,7 @@ class TaskList(LoginRequiredMixin, ListView):
     def get(self, request, *args, **kwargs):
         # checks to see if a task primary key was included in the url
         self.taskDetailID = kwargs.get("pk")
+        self.tagFilter = kwargs.get("tagpk")
         return super(TaskList, self).get(request, *args, **kwargs)
 
     # Used by ListViews - it determines the list of objects that you want to display
@@ -29,7 +30,11 @@ class TaskList(LoginRequiredMixin, ListView):
 
         # each key-value pair of the dict is passed as a keyword argument
         # used to filter all results before get_context_data
-        self.queryfilters = {"user": self.request.user}
+        if self.tagFilter is not None:
+            self.queryfilters = {"user": self.request.user, "tag": self.tagFilter}
+        else:
+            self.queryfilters = {"user": self.request.user}
+            
         return qs.filter(**self.queryfilters)
 
     def get_context_data(self, **kwargs):
@@ -45,10 +50,11 @@ class TaskList(LoginRequiredMixin, ListView):
         daystoday = 0
         daysnextseven = 0
         for task in context["tasks"]:
-            if task.days_away_from_due() == 0:
-                daystoday += 1
-            if task.days_away_from_due() <= 7:
-                daysnextseven += 1
+            if task.days_away_from_due() is not None:
+                if task.days_away_from_due() == 0:
+                    daystoday += 1
+                if task.days_away_from_due() <= 7:
+                    daysnextseven += 1
         context["due_today"] = daystoday
         context["due_next_seven_days"] = daysnextseven
 
@@ -67,6 +73,12 @@ class TaskCreate(LoginRequiredMixin, FormView):
     template_name = "tasks/task_form.html"
     form_class = TaskForm
     success_url = reverse_lazy("task")
+    
+    # pass the current user to the ModelForm instance using a kwarg
+    def get_form_kwargs(self):
+        kwargs = super(TaskCreate, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
     def form_valid(self, form):
         form.instance.user = self.request.user
