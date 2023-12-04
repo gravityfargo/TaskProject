@@ -36,10 +36,7 @@ if not os.path.isfile("db.sqlite3"):
     toggle = 1
         
 # process the database, after fixure import if that was needed
-subprocess.call("python manage.py makemigrations tasks", shell=True)
-subprocess.call("python manage.py makemigrations dashboard", shell=True)
-subprocess.call("python manage.py migrate tasks", shell=True)
-subprocess.call("python manage.py migrate dashboard", shell=True)
+subprocess.call("python manage.py makemigrations", shell=True)
 subprocess.call("python manage.py migrate", shell=True)
 
 if toggle == 1:
